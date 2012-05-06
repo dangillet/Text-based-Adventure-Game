@@ -13,7 +13,7 @@ Character::~Character()
     std::cout << "Character destructor";
 }
 
-std::string Character::showInventory()
+std::string Character::ShowInventory()
 {
     std::string tempString = "";
     if(!m_inventory.empty())
@@ -29,7 +29,7 @@ std::string Character::showInventory()
     return tempString;
 }
 
-void Character::addItemToInventory(ObjectPtr obj)
+void Character::AddItemToInventory(ObjectPtr obj)
 {
     m_inventory.push_back(std::move(obj));
 }

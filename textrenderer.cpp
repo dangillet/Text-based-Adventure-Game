@@ -1,7 +1,8 @@
+#include "drawable.h"
 #include "textrenderer.h"
-#include "room.h"
+#include <iostream>
 
-TextRenderer::TextRenderer()
+TextRenderer::TextRenderer() : m_textOutput()
 {
     //ctor
 }
@@ -11,12 +12,23 @@ TextRenderer::~TextRenderer()
     //dtor
 }
 
-void TextRenderer::DrawRoom(const Room& room)
+void TextRenderer::Draw(const Drawable& drawable)
 {
-    std::cout << "-----------------------------------------------------------------" << "\n";
-    std::cout << room.GetName() << "\n";
-    std::cout << "-----------------------------------------------------------------" << "\n\n";
-    std::cout << room.GetDescription() << "\n\n";
+    drawable.Draw(*this);
 }
 
+void TextRenderer::DrawText(const std::string& text)
+{
+    m_textOutput << text;
+}
 
+void TextRenderer::Display()
+{
+    std::cout << m_textOutput.rdbuf();
+    m_textOutput.str("");
+}
+
+void TextRenderer::Clear()
+{
+
+}

@@ -1,0 +1,15 @@
+Room: 1
+Name: a dark cave
+Description: You are standing in a dark cave. You hear water running somewhere in the distance.
+Exits: 2 3
+Object: a hammer
+
+Room: 2
+Name: a waterfall
+Description: You are standing in front of a beautiful waterfall. There is an opening in the cave and you can see the moon shining brightly.
+Exits: 1
+
+Room: 3
+Name: a dark forest
+Description: You are standing in a forest. Although the forest is dark, you do feel at home. There is a cave behind that oak tree over there.
+Exits: 1

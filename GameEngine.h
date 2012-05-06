@@ -1,29 +1,28 @@
 #ifndef GAMEENGINE_H_INCLUDED
 #define GAMEENGINE_H_INCLUDED
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include "character.h"
+#include <memory>
+
 #include "world.h"
+#include "renderer.h"
 
 class GameEngine {
     public:
         GameEngine();
-        bool Init();
-        void UserInput();
+        void Run();
+
+    private:
+        void Init();
+        void UserInput(const std::string& command);
         void Render();
         void CleanUp();
 
+        bool m_running;
 
-        bool Running;
+        World                       m_world;
+        std::unique_ptr<Renderer>   m_renderer;
 
-    private:
-        World           m_world;
-        std::string     message;
-
-        Object* FindArgObj(const std::string argument);
+        //Object* FindArgObj(const std::string& argument);
 };
 
 #endif // GAMEENGINE_H_INCLUDED

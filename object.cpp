@@ -33,6 +33,20 @@ std::string Object::AddItem(ObjectPtr object)
     return "This item cannot store anything.";
 }
 
+std::string Hammer::Examine()
+{
+    return "This is an old hammer. Probably not worth 1 gp.";
+}
+
+std::string Hammer::Open()
+{
+    return "Can't open a hammer.";
+}
+
+std::string Hammer::UseWith(Object &obj)
+{
+    return "This is not useful";
+}
 
 /*
 Key::Key(std::string name, std::string description) :

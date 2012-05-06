@@ -8,10 +8,9 @@ class Drawable
     public:
         virtual ~Drawable() {}
 
-        virtual void Draw() const = 0;
+        virtual void Draw(Renderer& renderer) const = 0;
     protected:
-        explicit Drawable(Renderer& renderer) : m_renderer(renderer) {}
-        Renderer&       m_renderer;
+        Drawable() {}
     private:
 };
 

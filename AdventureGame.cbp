@@ -35,10 +35,6 @@
 		</Compiler>
 		<Unit filename="GameEngine.cpp" />
 		<Unit filename="GameEngine.h" />
-		<Unit filename="GameEngine_CleanUp.cpp" />
-		<Unit filename="GameEngine_Init.cpp" />
-		<Unit filename="GameEngine_Render.cpp" />
-		<Unit filename="GameEngine_UserInput.cpp" />
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
 		<Unit filename="drawable.h" />

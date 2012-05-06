@@ -1,7 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-class Room;
+class Drawable;
 
 class Renderer
 {
@@ -9,7 +9,11 @@ class Renderer
         Renderer() {}
         virtual ~Renderer() {}
 
-        virtual void DrawRoom(const Room& room) = 0;
+        virtual void Draw(const Drawable& drawable) = 0;
+
+        virtual void DrawText(const std::string& text) = 0;
+        virtual void Display() = 0;
+        virtual void Clear() = 0;
 
     protected:
     private:

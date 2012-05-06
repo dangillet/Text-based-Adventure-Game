@@ -2,25 +2,37 @@
 #define WORLD_H
 
 #include <memory>
-#include <vector>
+#include <unordered_map>
 #include <string>
 
-class Room;
-class Player;
+#include "drawable.h"
 
-class World
+class Room;
+class Character;
+
+class World : public Drawable
 {
     public:
+        typedef std::shared_ptr<Room>       RoomPtr;
+
         World();
         virtual ~World();
 
-    protected:
-    private:
+        void AddRoom(int id, RoomPtr sp_room);
+        const RoomPtr& GetRoom(int id) const;
+        RoomPtr GetPlayerRoom();
+        const std::string& GetRoomName(int id);
         void LoadWorld(const std::string& filename);
 
-        typedef std::shared_ptr<Room>       RoomPtr;
-        std::vector<RoomPtr>                m_rooms;
-        std::shared_ptr<Player>             m_player;
+        std::shared_ptr<Character> GetPlayer();
+
+        void Draw(Renderer& renderer) const;
+
+    protected:
+    private:
+
+        std::unordered_map<int, RoomPtr>    m_rooms;
+        std::shared_ptr<Character>          m_player;
 
 };
 

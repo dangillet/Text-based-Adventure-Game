@@ -12,11 +12,11 @@ class Character
         Character();
         ~Character();
 
-        std::shared_ptr<Room> Get_location() { return m_location; }
-        void Set_location(std::shared_ptr<Room> the_room) { m_location = the_room; }
-        void addItemToInventory(ObjectPtr obj);
+        std::shared_ptr<Room> GetLocation() { return m_location; }
+        void SetLocation(const std::shared_ptr<Room>& the_room) { m_location = the_room; }
+        void AddItemToInventory(ObjectPtr obj);
 
-        std::string showInventory();
+        std::string ShowInventory();
         std::vector<ObjectPtr> AccessInventory() const { return m_inventory; }
     protected:
     private:

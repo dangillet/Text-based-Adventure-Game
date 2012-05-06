@@ -14,7 +14,7 @@ class Renderer;
 class Object
 {
     public:
-        typedef std::unique_ptr<Object> ObjectPtr;
+        typedef std::shared_ptr<Object> ObjectPtr;
         virtual ~Object(){};
         virtual std::string Examine() = 0;
         virtual std::string Open() = 0;
@@ -34,6 +34,16 @@ class Object
 };
 
 typedef std::shared_ptr<Object> ObjectPtr;
+
+class Hammer : public Object
+{
+    public:
+        Hammer(const std::string& name) :
+            Object(name, "This is an old hammer. Probably not worth 1 gp.") {}
+        std::string Examine();
+        std::string Open();
+        std::string UseWith(Object &obj);
+};
 
 /*
 class Key : public Object
