@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="GameEngine.cpp" open="1" top="1" tabpos="6">
-		<Cursor position="1071" topLine="40" />
+	<File name="GameEngine.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="1332" topLine="47" />
 	</File>
-	<File name="GameEngine.h" open="1" top="0" tabpos="5">
-		<Cursor position="483" topLine="0" />
+	<File name="GameEngine.h" open="0" top="0" tabpos="5">
+		<Cursor position="241" topLine="0" />
 	</File>
-	<File name="character.cpp" open="1" top="0" tabpos="15">
-		<Cursor position="588" topLine="0" />
+	<File name="character.cpp" open="0" top="0" tabpos="15">
+		<Cursor position="64" topLine="0" />
 	</File>
-	<File name="character.h" open="1" top="0" tabpos="14">
+	<File name="character.h" open="0" top="0" tabpos="14">
 		<Cursor position="243" topLine="0" />
 	</File>
-	<File name="drawable.h" open="1" top="0" tabpos="13">
+	<File name="drawable.h" open="0" top="0" tabpos="13">
 		<Cursor position="178" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="7">
+	<File name="main.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="87" topLine="0" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="17">
 		<Cursor position="50" topLine="0" />
 	</File>
-	<File name="object.cpp" open="1" top="0" tabpos="9">
+	<File name="object.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="687" topLine="22" />
 	</File>
-	<File name="object.h" open="1" top="0" tabpos="8">
-		<Cursor position="986" topLine="25" />
+	<File name="object.h" open="0" top="0" tabpos="8">
+		<Cursor position="1033" topLine="47" />
 	</File>
-	<File name="renderer.h" open="1" top="0" tabpos="10">
+	<File name="renderer.h" open="0" top="0" tabpos="10">
 		<Cursor position="40" topLine="0" />
 	</File>
 	<File name="room.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1035" topLine="23" />
+		<Cursor position="2453" topLine="72" />
 	</File>
 	<File name="room.h" open="1" top="0" tabpos="3">
-		<Cursor position="759" topLine="12" />
+		<Cursor position="870" topLine="15" />
 	</File>
-	<File name="textrenderer.cpp" open="1" top="0" tabpos="11">
+	<File name="textrenderer.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="464" topLine="4" />
 	</File>
-	<File name="textrenderer.h" open="1" top="0" tabpos="12">
+	<File name="textrenderer.h" open="0" top="0" tabpos="12">
 		<Cursor position="246" topLine="0" />
 	</File>
-	<File name="world.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="1763" topLine="64" />
+	<File name="world.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1796" topLine="65" />
 	</File>
-	<File name="world.h" open="1" top="0" tabpos="1">
-		<Cursor position="413" topLine="6" />
+	<File name="world.h" open="1" top="0" tabpos="2">
+		<Cursor position="100" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

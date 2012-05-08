@@ -78,6 +78,7 @@ void World::LoadWorld(const std::string& filename)
             file >> str;
             while(str == "Object:")
             {
+                std::ws(file);
                 std::getline(file, str);
                 room->AddObject(str, std::unique_ptr<Hammer>(new Hammer()));
 

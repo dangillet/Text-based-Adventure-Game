@@ -3,6 +3,7 @@
 #include "TextRenderer.h"
 #include "character.h"
 #include "renderer.h"
+#include "object.h"
 #include <unordered_set>
 #include <iostream>
 #include <sstream>
@@ -57,11 +58,11 @@ void GameEngine::UserInput(const std::string& command)
 
         if(currentRoom->IsObjectAvailable(token))
         {
-            m_renderer->DrawText("it's there");
+            m_renderer->DrawText(currentRoom->GetObjectByName(token)->GetDescription() + "\n");
         }
         else
         {
-            m_renderer->DrawText("not there");
+            m_renderer->DrawText(token + " is nowhere to be found here.\n");
         }
         return;
     }
