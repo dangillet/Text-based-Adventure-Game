@@ -10,18 +10,17 @@
 
 class Renderer;
 
-
 class Object
 {
     public:
         typedef std::shared_ptr<Object> ObjectPtr;
-        virtual ~Object(){};
+        virtual ~Object() {};
         virtual std::string Examine() = 0;
         virtual std::string Open() = 0;
         virtual std::string UseWith(Object &obj) = 0;
+        // Should the following be here or only in the class where these things are possible ?
         virtual std::string SetLock(bool lock);
         virtual std::string AddItem(ObjectPtr object);
-
 
         const std::string& GetName() const { return m_name; }
         const std::string& GetDescription() const { return m_description; }
@@ -33,13 +32,13 @@ class Object
         std::string m_description;
 };
 
-typedef std::shared_ptr<Object> ObjectPtr;
+
 
 class Hammer : public Object
 {
     public:
-        Hammer(const std::string& name) :
-            Object(name, "This is an old hammer. Probably not worth 1 gp.") {}
+        Hammer() :
+            Object("a hammer", "This is an old hammer. Probably not worth 1 gp.") {}
         std::string Examine();
         std::string Open();
         std::string UseWith(Object &obj);

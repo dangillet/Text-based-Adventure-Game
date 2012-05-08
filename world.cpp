@@ -1,5 +1,6 @@
 #include "world.h"
 #include "room.h"
+#include "object.h"
 #include "character.h"
 
 #include <fstream>
@@ -30,7 +31,7 @@ void World::Draw(Renderer& renderer) const
     m_player->GetLocation()->Draw(renderer);
 }
 
-const RoomPtr& World::GetRoom(int id) const
+const RoomPtr& World::GetRoomById(int id) const
 {
     return m_rooms.at(id);
 }
@@ -78,13 +79,13 @@ void World::LoadWorld(const std::string& filename)
             while(str == "Object:")
             {
                 std::getline(file, str);
-                room->AddObject(str, std::make_shared<Hammer>(str));
+                room->AddObject(str, std::unique_ptr<Hammer>(new Hammer()));
 
                 file >> str;
             }
         }
     }
-    m_player->SetLocation(GetRoom(1));
+    m_player->SetLocation(GetRoomById(1));
 }
 
 std::shared_ptr<Character> World::GetPlayer()

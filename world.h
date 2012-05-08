@@ -16,10 +16,10 @@ class World : public Drawable
         typedef std::shared_ptr<Room>       RoomPtr;
 
         World();
-        virtual ~World();
+        ~World();
 
         void AddRoom(int id, RoomPtr sp_room);
-        const RoomPtr& GetRoom(int id) const;
+        const RoomPtr& GetRoomById(int id) const;
         RoomPtr GetPlayerRoom();
         const std::string& GetRoomName(int id);
         void LoadWorld(const std::string& filename);

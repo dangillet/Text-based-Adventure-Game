@@ -2,6 +2,7 @@
 #include "GameEngine.h"
 #include "TextRenderer.h"
 #include "character.h"
+#include "renderer.h"
 #include <unordered_set>
 #include <iostream>
 #include <sstream>
@@ -13,6 +14,8 @@ GameEngine::GameEngine() :
 {
 
 }
+
+GameEngine::~GameEngine() {}
 
 void GameEngine::Run()
 {
@@ -52,7 +55,14 @@ void GameEngine::UserInput(const std::string& command)
         std::getline(ss, token);
         auto currentRoom = m_world.GetPlayerRoom();
 
-        m_renderer->DrawText("Examining " + token +"\n");
+        if(currentRoom->IsObjectAvailable(token))
+        {
+            m_renderer->DrawText("it's there");
+        }
+        else
+        {
+            m_renderer->DrawText("not there");
+        }
         return;
     }
     if(token == "inventory")
@@ -63,6 +73,7 @@ void GameEngine::UserInput(const std::string& command)
     {
         if(ss >> token && token == "to")
         {
+            //Skip whitespaces
             std::ws(ss);
             std::getline(ss, token);
             auto player = m_world.GetPlayer();

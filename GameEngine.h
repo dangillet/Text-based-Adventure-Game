@@ -4,11 +4,13 @@
 #include <memory>
 
 #include "world.h"
-#include "renderer.h"
+
+class Renderer;
 
 class GameEngine {
     public:
         GameEngine();
+        ~GameEngine();
         void Run();
 
     private:

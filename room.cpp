@@ -1,6 +1,7 @@
 #include "room.h"
 #include "renderer.h"
 #include "world.h"
+#include "object.h"
 #include <algorithm>
 
 Room::Room(World& world, int ID, const std::string& name, const std::string& description,
@@ -19,7 +20,7 @@ Room::~Room()
 {
     for(auto roomID : m_exits)
     {
-        m_world.GetRoom(roomID)->RemoveExit(m_ID);
+        m_world.GetRoomById(roomID)->RemoveExit(m_ID);
     }
 }
 
@@ -47,7 +48,7 @@ void Room::Draw(Renderer& renderer) const
         auto iterRoom = m_exits.cbegin(), iterEnd = m_exits.cend();
         while(true)
         {
-            renderer.DrawText(m_world.GetRoom(*iterRoom)->GetName());
+            renderer.DrawText(m_world.GetRoomById(*iterRoom)->GetName());
             if(++iterRoom == iterEnd) break;
             renderer.DrawText(", ");
         }
@@ -79,10 +80,22 @@ std::shared_ptr<Room> Room::GetExitTo(const std::string& exitName)
                              }
                              );
     if(room == m_exits.end()) return nullptr;
-    return m_world.GetRoom(*room);
+    return m_world.GetRoomById(*room);
 }
 
 void Room::AddObject(const std::string& name, ObjectPtr object)
 {
-    m_loot[name] = object;
+    m_loot[name] = std::move(object);
+}
+
+bool Room::IsObjectAvailable(const std::string& name) const
+{
+    auto iterObject = m_loot.find(name);
+    if(iterObject == m_loot.end()) return false;
+    return true;
+}
+
+const std::unique_ptr<Object>& Room::GetObjectByName(const std::string& name) const
+{
+    return m_loot.at(name);
 }
