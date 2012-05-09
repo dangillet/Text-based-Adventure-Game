@@ -80,8 +80,10 @@ void World::LoadWorld(const std::string& filename)
             {
                 std::ws(file);
                 std::getline(file, str);
-                room->AddObject(str, std::unique_ptr<Hammer>(new Hammer()));
-
+                if(str == "a hammer")
+                {
+                    room->AddObject(str, std::unique_ptr<Hammer>(new Hammer()));
+                }
                 file >> str;
             }
         }
