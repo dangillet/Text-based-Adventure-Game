@@ -28,7 +28,7 @@ std::string Object::SetLock(bool lock)
 {
     return "This doesn't work.";
 }
-std::string Object::AddItem(ObjectPtr object)
+std::string Object::AddItem(ObjectPtr& object)
 {
     return "This item cannot store anything.";
 }
@@ -47,6 +47,16 @@ std::string Hammer::UseWith(Object &obj)
 {
     return "This is not useful";
 }
+
+Chest::Chest():
+    Object("a chest", "This is a sturdy wooden chest."),
+    m_container() {}
+
+std::string Chest::AddItem(ObjectPtr& object)
+{
+    m_container.insert(std::make_pair(object->GetName(), std::move(object)));
+}
+
 
 /*
 Key::Key(std::string name, std::string description) :
