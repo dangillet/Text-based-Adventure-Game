@@ -82,8 +82,9 @@ void World::LoadWorld(const std::string& filename)
                 std::getline(file, str);
                 if(str == "a hammer")
                 {
-                    room->AddObject("a chest", std::unique_ptr<Object>(new Chest()));
-                    //room->AddObject(str, std::unique_ptr<Hammer>(new Hammer()));
+                    std::shared_ptr<Object> chest(new Chest());
+                    room->AddObject(chest);
+                    chest->AddItem(std::shared_ptr<Object>(new Hammer()));
                 }
                 file >> str;
             }

@@ -55,10 +55,26 @@ void GameEngine::UserInput(const std::string& command)
         std::ws(ss);
         std::getline(ss, token);
         auto currentRoom = m_world.GetPlayerRoom();
-
-        if(currentRoom->IsObjectAvailable(token))
+        std::shared_ptr<Object> object = currentRoom->GetObjectByName(token);
+        if(object)
         {
-            m_renderer->DrawText(currentRoom->GetObjectByName(token)->GetDescription() + "\n");
+            m_renderer->DrawText(object->Examine() + "\n");
+        }
+        else
+        {
+            m_renderer->DrawText(token + " is nowhere to be found here.\n");
+        }
+        return;
+    }
+    if(token == "open")
+    {
+        std::ws(ss);
+        std::getline(ss, token);
+        auto currentRoom = m_world.GetPlayerRoom();
+        std::shared_ptr<Object> object = currentRoom->GetObjectByName(token);
+        if(object)
+        {
+            m_renderer->DrawText(object->Open() + "\n");
         }
         else
         {

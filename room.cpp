@@ -36,7 +36,7 @@ void Room::Draw(Renderer& renderer) const
         auto iterObject = m_loot.cbegin(), iterEnd = m_loot.cend();
         while(true)
         {
-            renderer.DrawText(iterObject->second->GetName());
+            renderer.DrawText((*iterObject)->GetName());
             if(++iterObject == iterEnd) break;
             renderer.DrawText(", ");
         }
@@ -83,19 +83,18 @@ std::shared_ptr<Room> Room::GetExitTo(const std::string& exitName)
     return m_world.GetRoomById(*room);
 }
 
-void Room::AddObject(const std::string& name, ObjectPtr object)
+void Room::AddObject(ObjectPtr object)
 {
-    m_loot[name] = std::move(object);
+    m_loot.push_back(object);
 }
 
-bool Room::IsObjectAvailable(const std::string& name) const
-{
-    auto iterObject = m_loot.find(name);
-    if(iterObject == m_loot.end()) return false;
-    return true;
-}
 
-const std::unique_ptr<Object>& Room::GetObjectByName(const std::string& name) const
+std::shared_ptr<Object> Room::GetObjectByName(const std::string& name) const
 {
-    return m_loot.at(name);
+    for(auto p_object : m_loot)
+    {
+        std::shared_ptr<Object> p_foundObject = p_object->GetObjectByName(name);
+        if(p_foundObject) return p_foundObject;
+    }
+    return std::shared_ptr<Object>();
 }
