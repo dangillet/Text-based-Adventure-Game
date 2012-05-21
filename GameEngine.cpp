@@ -7,6 +7,7 @@
 #include <unordered_set>
 #include <iostream>
 #include <sstream>
+#include <array>
 
 GameEngine::GameEngine() :
     m_running(true),
@@ -71,7 +72,7 @@ void GameEngine::UserInput(const std::string& command)
         std::ws(ss);
         std::getline(ss, token);
         auto currentRoom = m_world.GetPlayerRoom();
-        std::shared_ptr<Object> object = currentRoom->GetObjectByName(token);
+        auto object = currentRoom->GetObjectByName(token);
         if(object)
         {
             m_renderer->DrawText(object->Open() + "\n");
@@ -80,6 +81,39 @@ void GameEngine::UserInput(const std::string& command)
         {
             m_renderer->DrawText(token + " is nowhere to be found here.\n");
         }
+        return;
+    }
+    if(token == "use")
+    {
+        std::array<std::string, 2> arguments;
+        int i = 0;
+        ss.unsetf(std::ios::skipws);
+        std::ws(ss);
+        std::getline(ss, token);
+        auto position = token.find("with");
+        if(position == std::string::npos)
+        {
+            m_renderer->DrawText("Command unknown.\n");
+            return;
+        }
+        arguments[0] = token.substr(0, position - 1);
+        arguments[1] = token.substr(position + 5);
+
+        auto currentRoom = m_world.GetPlayerRoom();
+        auto object1 = currentRoom->GetObjectByName(arguments[0]);
+        if(!object1)
+        {
+            m_renderer->DrawText(arguments[0] + " is nowhere to be found.\n");
+            return;
+        }
+        auto object2 = currentRoom->GetObjectByName(arguments[1]);
+        if(!object2)
+        {
+            m_renderer->DrawText(arguments[1] + " is nowhere to be found.\n");
+            return;
+        }
+
+        m_renderer->DrawText(object1->UseWith(object2));
         return;
     }
     if(token == "inventory")
@@ -108,81 +142,8 @@ void GameEngine::UserInput(const std::string& command)
         return;
         }
     }
-/*
-    string line,command, argument;
-    char ch;
-    Clearmsg();
-
-    do
-    {
-        cout << "Command : ";
-        getline(cin, line);
-    }while(line.empty());
-
-    stringstream parser(line);
-    parser >> command;
-
-    Object* tempObj = NULL;
-    if(command == "examine")
-    {
-        while( (ch=parser.peek()) == ' ' ) parser.get(ch);
-        getline(parser, argument);
-
-        if((tempObj = FindArgObj(argument)) == NULL) Setmsg(argument + " is not found here.");
-        else Setmsg(tempObj->examine());
-    }
-    else if(command == "open")
-    {
-        while( (ch=parser.peek()) == ' ' ) parser.get(ch);
-        getline(parser, argument);
-
-        if((tempObj = FindArgObj(argument)) == NULL) Setmsg(argument + " is not found here.");
-        else Setmsg(tempObj->open());
-    }
-    else if(command == "use") {}
-    else if(command == "go")
-    {
-        parser >> command;
-        if(command == "to")
-        {
-            while( (ch=parser.peek()) == ' ' ) parser.get(ch);
-            getline(parser, argument);
-            for(unsigned int i=0; i<theHero->Get_location()->GetExits().size(); i++)
-            {
-
-                if(argument == world[(theHero->Get_location()->GetExits()[i])]->Getname() )
-                {
-                    theHero->Set_location(world[(theHero->Get_location()->GetExits()[i])]);
-                }
-            }
-        }
-    }
-    else Setmsg("Command not understood. Please try again.");
-
-
-*/
-
 }
 
-//==============================================================================
-/*
-Object* GameEngine::FindArgObj(const std::string& argument)
-{
-
-    Object* tempObj = NULL;
-
-    for(unsigned int i=0; i<theHero->Get_location()->Accessloot().size(); i++)
-    {
-        if(argument == theHero->Get_location()->Accessloot()[i]->Getname()) tempObj = theHero->Get_location()->Accessloot()[i];
-    }
-    for(unsigned int i=0; i<theHero->AccessInventory().size(); i++)
-    {
-        if(argument == theHero->AccessInventory()[i]->Getname()) tempObj = theHero->AccessInventory()[i];
-    }
-
-    return tempObj;
-}
-*/
 void GameEngine::Render()
 {
     m_renderer->Display();

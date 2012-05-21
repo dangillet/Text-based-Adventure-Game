@@ -11,21 +11,21 @@ Object::Object(const std::string& name, const std::string& description) :
 
 std::string Object::Open()
 {
-    return "This cannot be opened.";
+    return "This cannot be opened.\n";
 }
 
-std::string Object::UseWith(Object &obj)
+std::string Object::UseWith(ObjectPtr obj)
 {
-    return "This doesn't work.";
+    return "This doesn't work.\n";
 }
 
 std::string Object::SetLock(bool lock)
 {
-    return "This doesn't work.";
+    return "This doesn't work.\n";
 }
 std::string Object::AddItem(ObjectPtr object)
 {
-    return "This item cannot store anything.";
+    return "This item cannot store anything.\n";
 }
 
 // ========== Hammer ===============
@@ -40,7 +40,7 @@ std::string Hammer::Open()
     return "Can't open a hammer.";
 }
 
-std::string Hammer::UseWith(Object &obj)
+std::string Hammer::UseWith(ObjectPtr obj)
 {
     return "This is not useful";
 }
@@ -87,11 +87,19 @@ std::string Chest::AddItem(ObjectPtr object)
 std::shared_ptr<Object> Chest::GetObjectByName(const std::string& name)
 {
     if(m_name == name) return shared_from_this();
-
-    for(auto p_object : m_container)
+    if(!m_locked)
     {
-        auto p_foundObject = p_object->GetObjectByName(name);
-        if(p_foundObject) return p_foundObject;
+        for(auto p_object : m_container)
+        {
+            auto p_foundObject = p_object->GetObjectByName(name);
+            if(p_foundObject) return p_foundObject;
+        }
     }
+
     return std::shared_ptr<Object>();
+}
+
+std::string Chest::UseWith(ObjectPtr obj)
+{
+    return Object::UseWith(obj);
 }

@@ -24,8 +24,11 @@ void TextRenderer::DrawText(const std::string& text)
 
 void TextRenderer::Display()
 {
-    std::cout << m_textOutput.rdbuf();
-    m_textOutput.str("");
+    if(m_textOutput.str() != "")
+    {
+        std::cout << m_textOutput.rdbuf();
+        m_textOutput.str("");
+    }
 }
 
 void TextRenderer::Clear()

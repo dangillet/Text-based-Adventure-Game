@@ -17,7 +17,7 @@ class Object : public std::enable_shared_from_this<Object>
         virtual ~Object() {};
         virtual std::string Examine() = 0;
         virtual std::string Open() = 0;
-        virtual std::string UseWith(Object &obj) = 0;
+        virtual std::string UseWith(ObjectPtr obj) = 0;
         // Should the following be here or only in the class where these things are possible ?
         virtual std::string SetLock(bool lock);
         virtual std::string AddItem(ObjectPtr object);
@@ -40,7 +40,7 @@ class Hammer : public Object
             Object("a hammer", "This is an old hammer. Probably not worth 1 gp.") {}
         std::string Examine();
         std::string Open();
-        std::string UseWith(Object &obj);
+        std::string UseWith(ObjectPtr obj);
         virtual ObjectPtr GetObjectByName(const std::string& name);
 };
 
@@ -51,7 +51,7 @@ class Chest : public Object
 
     std::string Examine();
     std::string Open();
-    std::string UseWith(Object &obj) { return ""; }
+    std::string UseWith(ObjectPtr obj);
     std::string AddItem(ObjectPtr object);
 
     virtual ObjectPtr GetObjectByName(const std::string& name);
