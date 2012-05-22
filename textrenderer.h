@@ -8,7 +8,7 @@ class TextRenderer : public Renderer
 {
     public:
         TextRenderer();
-        ~TextRenderer();
+        virtual ~TextRenderer();
 
         void Draw(const Drawable& drawable);
 
