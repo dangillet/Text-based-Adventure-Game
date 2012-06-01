@@ -7,8 +7,6 @@
 #include <cassert>
 #include <iterator>
 
-typedef std::shared_ptr<Room>       RoomPtr;
-
 World::World() :
     m_rooms(),
     m_player(std::make_shared<Character>())
@@ -31,12 +29,18 @@ void World::Draw(Renderer& renderer) const
     m_player->GetLocation()->Draw(renderer);
 }
 
-const RoomPtr& World::GetRoomById(int id) const
+RoomPtr World::GetRoomById(int id) const
 {
     return m_rooms.at(id);
 }
 
-RoomPtr World::GetPlayerRoom()
+ObjectPtr World::GetObjectByName(const std::string& name) const
+{
+    RoomPtr playerRoom = GetPlayerRoom();
+    return playerRoom->GetObjectByName(name);
+}
+
+RoomPtr World::GetPlayerRoom() const
 {
     return m_player->GetLocation();
 }

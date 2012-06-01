@@ -9,19 +9,24 @@
 
 class Room;
 class Character;
+class Object;
+
+typedef std::shared_ptr<Room>       RoomPtr;
+typedef std::shared_ptr<Object>     ObjectPtr;
 
 class World : public Drawable
 {
     public:
-        typedef std::shared_ptr<Room>       RoomPtr;
+
 
         World();
         ~World();
 
         void AddRoom(int id, RoomPtr sp_room);
-        const RoomPtr& GetRoomById(int id) const;
-        RoomPtr GetPlayerRoom();
+        RoomPtr GetRoomById(int id) const;
+        RoomPtr GetPlayerRoom() const;
         const std::string& GetRoomName(int id);
+        ObjectPtr GetObjectByName(const std::string& name) const;
         void LoadWorld(const std::string& filename);
 
         std::shared_ptr<Character> GetPlayer();

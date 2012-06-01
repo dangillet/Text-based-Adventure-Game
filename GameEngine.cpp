@@ -55,8 +55,7 @@ void GameEngine::UserInput(const std::string& command)
     {
         std::ws(ss);
         std::getline(ss, token);
-        auto currentRoom = m_world.GetPlayerRoom();
-        std::shared_ptr<Object> object = currentRoom->GetObjectByName(token);
+        std::shared_ptr<Object> object = m_world.GetObjectByName(token);
         if(object)
         {
             m_renderer->DrawText(object->Examine() + "\n");
