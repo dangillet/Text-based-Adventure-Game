@@ -2,6 +2,7 @@
 #include "room.h"
 #include "object.h"
 #include "character.h"
+#include "objectcontainer.h"
 
 #include <fstream>
 #include <cassert>
@@ -100,4 +101,15 @@ void World::LoadWorld(const std::string& filename)
 std::shared_ptr<Character> World::GetPlayer()
 {
     return m_player;
+}
+
+void World::PickUpObject(ObjectPtr object)
+{
+    TransferObject(object, GetPlayerRoom(), m_player);
+}
+
+void World::TransferObject(ObjectPtr object, std::shared_ptr<ObjectContainer> from, std::shared_ptr<ObjectContainer> to)
+{
+    to->AddObject(object);
+    from->RemoveObject(object);
 }

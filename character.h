@@ -4,8 +4,9 @@
 #include <string>
 #include <vector>
 #include "room.h"
+#include "objectcontainer.h"
 
-class Character
+class Character : public ObjectContainer
 {
     public:
         typedef std::shared_ptr<Object> ObjectPtr;
@@ -14,14 +15,10 @@ class Character
 
         std::shared_ptr<Room> GetLocation() { return m_location; }
         void SetLocation(const std::shared_ptr<Room>& the_room) { m_location = the_room; }
-        void AddItemToInventory(ObjectPtr obj);
 
-        std::string ShowInventory();
-        std::vector<ObjectPtr> AccessInventory() const { return m_inventory; }
     protected:
     private:
         std::shared_ptr<Room>                   m_location;
-        std::vector<ObjectPtr>                  m_inventory;
 };
 
 #endif // CHARACTER_H

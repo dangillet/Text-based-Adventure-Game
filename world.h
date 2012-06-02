@@ -10,6 +10,7 @@
 class Room;
 class Character;
 class Object;
+class ObjectContainer;
 
 typedef std::shared_ptr<Room>       RoomPtr;
 typedef std::shared_ptr<Object>     ObjectPtr;
@@ -30,11 +31,13 @@ class World : public Drawable
         void LoadWorld(const std::string& filename);
 
         std::shared_ptr<Character> GetPlayer();
+        void PickUpObject(ObjectPtr object);
 
         void Draw(Renderer& renderer) const;
 
     protected:
     private:
+        void TransferObject(ObjectPtr object, std::shared_ptr<ObjectContainer> from, std::shared_ptr<ObjectContainer> to);
 
         std::unordered_map<int, RoomPtr>    m_rooms;
         std::shared_ptr<Character>          m_player;
