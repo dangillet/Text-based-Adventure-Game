@@ -65,7 +65,14 @@ std::string Chest::Examine()
     if(!m_container.empty() && !m_locked)
     {
         description += "\nThe chest is not empty. It contains : ";
-        for(auto& pObject : m_container) description += pObject->GetName() + ", ";
+        auto iterObject = m_container.cbegin(), iterEnd = m_container.cend();
+        while(true)
+        {
+            description += (*iterObject)->GetName();
+            if(++iterObject == iterEnd) break;
+            description += ", ";
+        }
+        //for(auto& pObject : m_container) description += pObject->GetName() + ", ";
     }
     return description;
 }
