@@ -7,11 +7,13 @@
 #include <memory>
 
 #include "drawable.h"
+#include "objectcontainer.h"
 
 class Object;
 class World;
 
-class Room : public Drawable
+class Room :    public Drawable,
+                public ObjectContainer
 {
     public:
         typedef std::shared_ptr<Object> ObjectPtr;
@@ -24,8 +26,6 @@ class Room : public Drawable
         const std::string& GetDescription() const { return m_description; }
 
         std::shared_ptr<Room> GetExitTo(const std::string& exitName);
-        void AddObject(ObjectPtr object);
-        ObjectPtr GetObjectByName(const std::string& name) const ;
 
         //ObjectPtr PickUp(const std::string& name);
         void Draw(Renderer& renderer) const;
@@ -38,7 +38,6 @@ class Room : public Drawable
         std::string                 m_name;
         std::string                 m_description;
         std::unordered_set<int>     m_exits;
-        Loot                        m_loot;
 };
 
 #endif // ROOM_H

@@ -2,12 +2,11 @@
 #include "room.h"
 #include "object.h"
 #include "character.h"
+#include "objectcontainer.h"
 
 #include <fstream>
 #include <cassert>
 #include <iterator>
-
-typedef std::shared_ptr<Room>       RoomPtr;
 
 World::World() :
     m_rooms(),
@@ -31,12 +30,23 @@ void World::Draw(Renderer& renderer) const
     m_player->GetLocation()->Draw(renderer);
 }
 
-const RoomPtr& World::GetRoomById(int id) const
+RoomPtr World::GetRoomById(int id) const
 {
     return m_rooms.at(id);
 }
 
-RoomPtr World::GetPlayerRoom()
+ObjectPtr World::GetObjectByName(const std::string& name, bool lookInPlayerInventory) const
+{
+    RoomPtr playerRoom = GetPlayerRoom();
+    auto object = playerRoom->GetObjectByName(name);
+    if(!object && lookInPlayerInventory)
+    {
+        object = m_player->GetObjectByName(name);
+    }
+    return object;
+}
+
+RoomPtr World::GetPlayerRoom() const
 {
     return m_player->GetLocation();
 }
@@ -96,4 +106,15 @@ void World::LoadWorld(const std::string& filename)
 std::shared_ptr<Character> World::GetPlayer()
 {
     return m_player;
+}
+
+void World::PickUpObject(ObjectPtr object)
+{
+    TransferObject(object, GetPlayerRoom(), m_player);
+}
+
+void World::TransferObject(ObjectPtr object, std::shared_ptr<ObjectContainer> from, std::shared_ptr<ObjectContainer> to)
+{
+    to->AddObject(object);
+    from->RemoveObject(object);
 }

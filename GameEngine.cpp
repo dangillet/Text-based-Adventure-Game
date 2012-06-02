@@ -55,8 +55,7 @@ void GameEngine::UserInput(const std::string& command)
     {
         std::ws(ss);
         std::getline(ss, token);
-        auto currentRoom = m_world.GetPlayerRoom();
-        std::shared_ptr<Object> object = currentRoom->GetObjectByName(token);
+        auto object = m_world.GetObjectByName(token);
         if(object)
         {
             m_renderer->DrawText(object->Examine() + "\n");
@@ -67,12 +66,12 @@ void GameEngine::UserInput(const std::string& command)
         }
         return;
     }
+
     if(token == "open")
     {
         std::ws(ss);
         std::getline(ss, token);
-        auto currentRoom = m_world.GetPlayerRoom();
-        auto object = currentRoom->GetObjectByName(token);
+        auto object = m_world.GetObjectByName(token);
         if(object)
         {
             m_renderer->DrawText(object->Open() + "\n");
@@ -83,10 +82,30 @@ void GameEngine::UserInput(const std::string& command)
         }
         return;
     }
+
+    if(token == "pick")
+    {
+        ss >> token;
+        if(token == "up")
+        {
+            std::ws(ss);
+            std::getline(ss, token);
+            auto object = m_world.GetObjectByName(token, false);
+            if(object)
+            {
+                m_world.PickUpObject(object);
+                m_renderer->DrawText("You picked up " + object->GetName() + "\n");
+            }
+            else
+            {
+                m_renderer->DrawText(token + " is nowhere to be found here.\n");
+            }
+        }
+    }
+
     if(token == "use")
     {
         std::array<std::string, 2> arguments;
-        int i = 0;
         ss.unsetf(std::ios::skipws);
         std::ws(ss);
         std::getline(ss, token);
@@ -99,14 +118,13 @@ void GameEngine::UserInput(const std::string& command)
         arguments[0] = token.substr(0, position - 1);
         arguments[1] = token.substr(position + 5);
 
-        auto currentRoom = m_world.GetPlayerRoom();
-        auto object1 = currentRoom->GetObjectByName(arguments[0]);
+        auto object1 = m_world.GetObjectByName(arguments[0]);
         if(!object1)
         {
             m_renderer->DrawText(arguments[0] + " is nowhere to be found.\n");
             return;
         }
-        auto object2 = currentRoom->GetObjectByName(arguments[1]);
+        auto object2 = m_world.GetObjectByName(arguments[1]);
         if(!object2)
         {
             m_renderer->DrawText(arguments[1] + " is nowhere to be found.\n");
@@ -116,10 +134,13 @@ void GameEngine::UserInput(const std::string& command)
         m_renderer->DrawText(object1->UseWith(object2));
         return;
     }
+
     if(token == "inventory")
     {
-        //Show inventory
+        m_renderer->DrawText("Your inventory : ");
+        m_renderer->DrawText(m_world.GetPlayer()->Inventory() + "\n");
     }
+
     if(token == "go")
     {
         if(ss >> token && token == "to")
