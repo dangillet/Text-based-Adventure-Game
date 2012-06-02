@@ -1,4 +1,4 @@
-#include <iostream>
+
 #include "character.h"
 #include "object.h"
 

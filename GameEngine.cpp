@@ -85,7 +85,6 @@ void GameEngine::UserInput(const std::string& command)
     if(token == "use")
     {
         std::array<std::string, 2> arguments;
-        int i = 0;
         ss.unsetf(std::ios::skipws);
         std::ws(ss);
         std::getline(ss, token);
