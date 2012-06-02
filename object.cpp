@@ -66,10 +66,8 @@ std::string Chest::Examine()
     {
         description += "\nThe chest is not empty. It contains : ";
         for(auto& pObject : m_container) description += pObject->GetName() + ", ";
-
-        return description;
     }
-
+    return description;
 }
 
 std::string Chest::Open()

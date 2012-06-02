@@ -10,8 +10,7 @@ Room::Room(World& world, int ID, const std::string& name, const std::string& des
     m_ID(ID),
     m_name(name),
     m_description(description),
-    m_exits(exits),
-    m_loot()
+    m_exits(exits)
 {
     //ctor
 }
@@ -30,18 +29,14 @@ void Room::Draw(Renderer& renderer) const
     renderer.DrawText(m_name + "\n");
     renderer.DrawText("-----------------------------------------------------------------\n\n");
     renderer.DrawText(m_description + "\n");
-    if(!m_loot.empty())
+
+    std::string inventory = Inventory();
+    if(inventory != "")
     {
         renderer.DrawText("You see : ");
-        auto iterObject = m_loot.cbegin(), iterEnd = m_loot.cend();
-        while(true)
-        {
-            renderer.DrawText((*iterObject)->GetName());
-            if(++iterObject == iterEnd) break;
-            renderer.DrawText(", ");
-        }
-        renderer.DrawText("\n");
+        renderer.DrawText(inventory + "\n");
     }
+
     if(!m_exits.empty())
     {
         renderer.DrawText("From here you can go to : ");
@@ -56,14 +51,6 @@ void Room::Draw(Renderer& renderer) const
     }
 }
 
-/*
-ObjectPtr Room::PickUp(const std::string& name)
-{
-    ObjectPtr temp = m_loot[name];
-    m_loot.erase(name);
-    return temp;
-}
-*/
 
 void Room::RemoveExit(int roomID)
 {
@@ -81,20 +68,4 @@ std::shared_ptr<Room> Room::GetExitTo(const std::string& exitName)
                              );
     if(room == m_exits.end()) return nullptr;
     return m_world.GetRoomById(*room);
-}
-
-void Room::AddObject(ObjectPtr object)
-{
-    m_loot.push_back(object);
-}
-
-
-std::shared_ptr<Object> Room::GetObjectByName(const std::string& name) const
-{
-    for(auto p_object : m_loot)
-    {
-        std::shared_ptr<Object> p_foundObject = p_object->GetObjectByName(name);
-        if(p_foundObject) return p_foundObject;
-    }
-    return std::shared_ptr<Object>();
 }

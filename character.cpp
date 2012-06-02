@@ -12,7 +12,7 @@ Character::Character() :
 
 Character::~Character()
 {
-    std::cout << "Character destructor";
+
 }
 
 std::string Character::ShowInventory()
