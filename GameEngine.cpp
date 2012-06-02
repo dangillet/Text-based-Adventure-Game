@@ -90,10 +90,7 @@ void GameEngine::UserInput(const std::string& command)
         {
             std::ws(ss);
             std::getline(ss, token);
-            // WARNING. The idea is to have GetObjectByName look also in player inventory.
-            // In this case, it would be a problem. Thinking of passing a bool argument to the GetObjectByName
-            // to choose if we should look in player inventory.
-            auto object = m_world.GetObjectByName(token);
+            auto object = m_world.GetObjectByName(token, false);
             if(object)
             {
                 m_world.PickUpObject(object);
@@ -137,10 +134,13 @@ void GameEngine::UserInput(const std::string& command)
         m_renderer->DrawText(object1->UseWith(object2));
         return;
     }
+
     if(token == "inventory")
     {
-        //Show inventory
+        m_renderer->DrawText("Your inventory : ");
+        m_renderer->DrawText(m_world.GetPlayer()->Inventory() + "\n");
     }
+
     if(token == "go")
     {
         if(ss >> token && token == "to")

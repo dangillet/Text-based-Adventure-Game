@@ -35,10 +35,15 @@ RoomPtr World::GetRoomById(int id) const
     return m_rooms.at(id);
 }
 
-ObjectPtr World::GetObjectByName(const std::string& name) const
+ObjectPtr World::GetObjectByName(const std::string& name, bool lookInPlayerInventory) const
 {
     RoomPtr playerRoom = GetPlayerRoom();
-    return playerRoom->GetObjectByName(name);
+    auto object = playerRoom->GetObjectByName(name);
+    if(!object && lookInPlayerInventory)
+    {
+        object = m_player->GetObjectByName(name);
+    }
+    return object;
 }
 
 RoomPtr World::GetPlayerRoom() const

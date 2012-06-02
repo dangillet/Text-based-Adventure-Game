@@ -27,7 +27,7 @@ class World : public Drawable
         RoomPtr GetRoomById(int id) const;
         RoomPtr GetPlayerRoom() const;
         const std::string& GetRoomName(int id);
-        ObjectPtr GetObjectByName(const std::string& name) const;
+        ObjectPtr GetObjectByName(const std::string& name, bool lookInPlayerInventory = true) const;
         void LoadWorld(const std::string& filename);
 
         std::shared_ptr<Character> GetPlayer();
