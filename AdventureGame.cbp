@@ -36,8 +36,6 @@
 		</Compiler>
 		<Unit filename="GameEngine.cpp" />
 		<Unit filename="GameEngine.h" />
-		<Unit filename="ObjectContainer.cpp" />
-		<Unit filename="ObjectContainer.h" />
 		<Unit filename="character.cpp" />
 		<Unit filename="character.h" />
 		<Unit filename="drawable.h" />
@@ -45,6 +43,8 @@
 		<Unit filename="main.h" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />
+		<Unit filename="objectcontainer.cpp" />
+		<Unit filename="objectcontainer.h" />
 		<Unit filename="renderer.h" />
 		<Unit filename="room.cpp" />
 		<Unit filename="room.h" />
